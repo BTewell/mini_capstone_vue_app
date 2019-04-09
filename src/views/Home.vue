@@ -1,11 +1,6 @@
 <template>
   <div class="home">
-    <h1>{{ message }}</h1>
-    <p>Name: <input type="text" v-model="newProductName"></p>
-    <p>Description: <input type="text" v-model="newProductDescription"></p>
-    <p>Price: <input type="text" v-model="newProductPrice"></p>
-    <p>Image_url: <input type="text" v-model="newProductImage_url"></p>
-    <button v-on:click="makeProduct()">Add a new Product</button>  
+    <h1>{{ message }}</h1>  
     <hr>
     <div v-for="product in products">
       <p>{{ product.name }}</p>
@@ -28,7 +23,7 @@
 
 <style>
   img {
-    width: 125px;
+    width: 200px;
   }
 </style>
 
