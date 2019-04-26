@@ -2,7 +2,13 @@
   <div class="home">
     <h1>{{ message }}</h1>  
     <hr>
-    <div v-for="product in products">
+    <input type="text" v-model="titleFilter" list="titles">
+    <datalist id="titles">
+      <option v-for="product in products">{{ product.name }}</option>
+    </datalist>
+    <button v-on:click="setSortAttribute('name')">Sort by name</button>
+      <div v-for="product in orderBy(products, sortAttribute, sortAsc)">
+
       <p>{{ product.name }}</p>
       <p><img v-bind:src="product.image_url"></p>
       <button v-on:click="toggleInfo(product)">Show more info</button>
@@ -30,11 +36,17 @@
 <script>
 import axios from "axios";
 
+import Vue2Filters from "vue2-filters";
+
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       message: "Welcome to Vue.js!",
       products: [],
+      sortAttribute: "name",
+      titleFilter: "",
+      sortAsc: 1,
       newProductName:"",
       newProductDescription:"",
       newProductPrice:"",
@@ -96,6 +108,15 @@ export default {
         // remove the item based on that index
         this.products.splice(index, 1);
       });
+    },
+    setSortAttribute: function(attribute) {
+      console.log(attribute);
+      this.sortAttribute = attribute;
+      if (this.sortAsc === 1) {
+        this.sortAsc = -1;
+      } else {
+        this.sortAsc = 1;
+      }
     }
   }
 };
